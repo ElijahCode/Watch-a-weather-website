@@ -44,6 +44,14 @@ function createBlock(elem, id, flag = 'app') {
   }
 }
 
+function createImgOfCityMap(elem) {
+  const img = document.createElement('img');
+
+  img.id = 'image';
+
+  elem.append(img);
+}
+
 async function getWeather(cityName) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=29322a2e1ecf125b380cfcee03239f35&units=metric`;
 
@@ -85,6 +93,19 @@ function rewriteParagraph(elem, data, position = 0) {
   parag.innerText = data;
 }
 
+function changeSourceOfImage(elem, data) {
+  const latitude = data.coord.lat;
+  const longitude = data.coord.lon;
+
+  const image = elem.getElementsByTagName('img').item(0);
+
+  const imgSource = `
+  http://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=10&size=400x400&key=AIzaSyAu9cQhEoU0Uj0-GkEBnWGP_4WpRdos6LU
+  `;
+
+  image.src = imgSource;
+}
+
 async function getWeatherByClick() {
   const cityName = this.innerText;
 
@@ -93,6 +114,7 @@ async function getWeatherByClick() {
   const data = createData(weather);
 
   rewriteParagraph(document.getElementById('block3'), data);
+  changeSourceOfImage(document.getElementById('image'), weather);
 }
 
 function addCityToList(cityName) {
@@ -124,6 +146,7 @@ export default async function buttonClick() {
 
   rewriteParagraph(document.getElementById('block3'), data);
   addCityToList(cityName);
+  changeSourceOfImage(document.getElementById('imageBlock'), weather);
 }
 
 // draw elemets and show weather in user city
@@ -135,18 +158,21 @@ export default async function buttonClick() {
   const userCityData = createData(userCityWeather);
 
   createBlock(document.getElementById('app'), 'block1', 'prep');
+  createParagraph(document.getElementById('block1'), 'Weather in your city:');
   createParagraph(document.getElementById('block1'), userCityData);
 }());
 
 // draw elements
 createBlock(document.getElementById('app'), 'block2');
-
 createParagraph(document.getElementById('block2'), 'Enter a city name:');
 createInput(document.getElementById('block2'));
 createButton(document.getElementById('block2'));
 
 createBlock(document.getElementById('app'), 'block3');
 createParagraph(document.getElementById('block3'), '');
+
+createBlock(document.getElementById('app'), 'imageBlock');
+createImgOfCityMap(document.getElementById('imageBlock'));
 
 createBlock(document.getElementById('app'), 'block4');
 createParagraph(document.getElementById('block4'), 'History of search:');
