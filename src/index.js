@@ -98,6 +98,7 @@ function changeSourceOfImage(elem, data) {
   const longitude = data.coord.lon;
 
   const image = elem.getElementsByTagName('img').item(0);
+  console.log(elem);
 
   const imgSource = `
   http://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=10&size=400x400&key=AIzaSyAu9cQhEoU0Uj0-GkEBnWGP_4WpRdos6LU
@@ -114,7 +115,19 @@ async function getWeatherByClick() {
   const data = createData(weather);
 
   rewriteParagraph(document.getElementById('block3'), data);
-  changeSourceOfImage(document.getElementById('image'), weather);
+  changeSourceOfImage(document.getElementById('imageBlock'), weather);
+}
+
+function addToStorage(data) {
+  for (let i = 0; i < 10; i += 1) {
+    const key = localStorage.key(`${i}`);
+    const value = localStorage.getItem(key);
+
+    if (value === '') {
+      localStorage.setItem(key, data);
+      break;
+    }
+  }
 }
 
 function addCityToList(cityName) {
@@ -128,12 +141,44 @@ function addCityToList(cityName) {
     }
   }
 
-  if (paragOfList.length === 10) {
+  if (paragOfList.length > 9) {
     list.removeChild(paragOfList.item(0));
+    localStorage.setItem('0', '');
   }
 
   const parag = createParagraph(list, cityName);
   parag.addEventListener('click', getWeatherByClick);
+
+  addToStorage(cityName);
+  console.log(localStorage);
+  return null;
+}
+
+function initStorage() {
+  if (localStorage.length > 0) {
+    return null;
+  }
+  for (let i = 0; i < 10; i += 1) {
+    localStorage.setItem(`${i}`, '');
+  }
+  return null;
+}
+
+async function readFromStorage() {
+  if (localStorage.length === 0) {
+    return null;
+  }
+  for (let i = 0; i < 10; i += 1) {
+    const key = localStorage.key(`${i}`);
+    const value = localStorage.getItem(key);
+
+    if (value === null) {
+      break;
+    }
+
+    const parag = createParagraph(document.getElementById('block4'), value);
+    parag.addEventListener('click', getWeatherByClick);
+  }
   return null;
 }
 
@@ -150,6 +195,8 @@ export default async function buttonClick() {
 }
 
 // draw elemets and show weather in user city
+initStorage();
+
 (async function () {
   const userCity = await defineUserCity();
 
@@ -174,5 +221,9 @@ createParagraph(document.getElementById('block3'), '');
 createBlock(document.getElementById('app'), 'imageBlock');
 createImgOfCityMap(document.getElementById('imageBlock'));
 
+createBlock(document.getElementById('app'), 'history');
+createParagraph(document.getElementById('history'), 'History of search:');
+
 createBlock(document.getElementById('app'), 'block4');
-createParagraph(document.getElementById('block4'), 'History of search:');
+
+readFromStorage();
