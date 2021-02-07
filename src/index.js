@@ -83,6 +83,26 @@ function rewriteParagraph(elem, data, position = 0) {
   parag.innerText = data;
 }
 
+function addCityToList(cityName) {
+  const list = document.getElementById('block4');
+
+  const paragOfList = list.getElementsByTagName('p');
+
+  for (let i = 0; i < paragOfList.length; i += 1) {
+    console.log(paragOfList.item(i).innerText);
+    if (cityName === paragOfList.item(i).innerText) {
+      return null;
+    }
+  }
+
+  if (paragOfList.length === 10) {
+    list.removeChild(paragOfList.item(0));
+  }
+
+  createParagraph(list, cityName);
+  return null;
+}
+
 export default async function buttonClick() {
   const cityName = getInputText('input');
 
@@ -91,6 +111,7 @@ export default async function buttonClick() {
   const data = createData(weather);
 
   rewriteParagraph(document.getElementById('block3'), data);
+  addCityToList(cityName);
 }
 
 // draw elemets and show weather in user city
@@ -114,3 +135,6 @@ createButton(document.getElementById('block2'));
 
 createBlock(document.getElementById('app'), 'block3');
 createParagraph(document.getElementById('block3'), '');
+
+createBlock(document.getElementById('app'), 'block4');
+createParagraph(document.getElementById('block4'), 'History of search:');
