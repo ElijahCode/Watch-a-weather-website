@@ -7,6 +7,8 @@ function createParagraph(elem, data) {
   } else {
     elem.append(p);
   }
+
+  return p;
 }
 
 function createInput(elem) {
@@ -83,13 +85,22 @@ function rewriteParagraph(elem, data, position = 0) {
   parag.innerText = data;
 }
 
+async function getWeatherByClick() {
+  const cityName = this.innerText;
+
+  const weather = await getWeather(cityName);
+
+  const data = createData(weather);
+
+  rewriteParagraph(document.getElementById('block3'), data);
+}
+
 function addCityToList(cityName) {
   const list = document.getElementById('block4');
 
   const paragOfList = list.getElementsByTagName('p');
 
   for (let i = 0; i < paragOfList.length; i += 1) {
-    console.log(paragOfList.item(i).innerText);
     if (cityName === paragOfList.item(i).innerText) {
       return null;
     }
@@ -99,7 +110,8 @@ function addCityToList(cityName) {
     list.removeChild(paragOfList.item(0));
   }
 
-  createParagraph(list, cityName);
+  const parag = createParagraph(list, cityName);
+  parag.addEventListener('click', getWeatherByClick);
   return null;
 }
 
