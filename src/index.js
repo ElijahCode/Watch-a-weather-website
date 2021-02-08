@@ -1,4 +1,4 @@
-function createParagraph(elem, data) {
+export function createParagraph(elem, data) {
   const p = document.createElement('p');
 
   p.innerText = data;
@@ -11,7 +11,7 @@ function createParagraph(elem, data) {
   return p;
 }
 
-function createInput(elem) {
+export function createInput(elem) {
   const input = document.createElement('input');
 
   input.type = 'text';
@@ -20,19 +20,7 @@ function createInput(elem) {
   elem.append(input);
 }
 
-function createButton(elem) {
-  const button = document.createElement('button');
-
-  button.innerHTML = `
-  <button onclick = 'buttonClick()'>
-  Show weather
-  </button>
-  `;
-
-  elem.append(button);
-}
-
-function createBlock(elem, id, flag = 'app') {
+export function createBlock(elem, id, flag = 'app') {
   const div = document.createElement('div');
 
   div.id = id;
@@ -44,7 +32,7 @@ function createBlock(elem, id, flag = 'app') {
   }
 }
 
-function createImgOfCityMap(elem) {
+export function createImgOfCityMap(elem) {
   const img = document.createElement('img');
 
   img.id = 'image';
@@ -52,7 +40,7 @@ function createImgOfCityMap(elem) {
   elem.append(img);
 }
 
-async function getWeather(cityName) {
+export async function getWeather(cityName) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=29322a2e1ecf125b380cfcee03239f35&units=metric`;
 
   const response = await fetch(url);
@@ -61,7 +49,7 @@ async function getWeather(cityName) {
   return jsonData;
 }
 
-async function defineUserCity() {
+export async function defineUserCity() {
   const url = 'https://get.geojs.io/v1/ip/geo.json';
 
   const response = await fetch(url);
@@ -70,7 +58,7 @@ async function defineUserCity() {
   return jsonData.city;
 }
 
-function createData(inputData) {
+export function createData(inputData) {
   const data = `
     In ${inputData.name} now is 
     ${inputData.weather[0].main},
@@ -83,17 +71,17 @@ function createData(inputData) {
   return data;
 }
 
-function getInputText(elemId) {
+export function getInputText(elemId) {
   const text = document.getElementById(elemId).value;
   return text;
 }
 
-function rewriteParagraph(elem, data, position = 0) {
+export function rewriteParagraph(elem, data, position = 0) {
   const parag = elem.getElementsByTagName('p').item(position);
   parag.innerText = data;
 }
 
-function changeSourceOfImage(elem, data) {
+export function changeSourceOfImage(elem, data) {
   const latitude = data.coord.lat;
   const longitude = data.coord.lon;
 
@@ -107,7 +95,7 @@ function changeSourceOfImage(elem, data) {
   image.src = imgSource;
 }
 
-async function getWeatherByClick() {
+export async function getWeatherByClick() {
   const cityName = this.innerText;
 
   const weather = await getWeather(cityName);
@@ -118,7 +106,7 @@ async function getWeatherByClick() {
   changeSourceOfImage(document.getElementById('imageBlock'), weather);
 }
 
-function addToStorage(data) {
+export function addToStorage(data) {
   for (let i = 0; i < 10; i += 1) {
     const key = localStorage.key(`${i}`);
     const value = localStorage.getItem(key);
@@ -130,7 +118,7 @@ function addToStorage(data) {
   }
 }
 
-function addCityToList(cityName) {
+export function addCityToList(cityName) {
   const list = document.getElementById('block4');
 
   const paragOfList = list.getElementsByTagName('p');
@@ -154,7 +142,7 @@ function addCityToList(cityName) {
   return null;
 }
 
-function initStorage() {
+export function initStorage() {
   if (localStorage.length > 0) {
     return null;
   }
@@ -164,7 +152,7 @@ function initStorage() {
   return null;
 }
 
-async function readFromStorage() {
+export async function readFromStorage() {
   if (localStorage.length === 0) {
     return null;
   }
@@ -194,36 +182,12 @@ export default async function buttonClick() {
   changeSourceOfImage(document.getElementById('imageBlock'), weather);
 }
 
-// draw elemets and show weather in user city
-initStorage();
+export function createButton(elem) {
+  const button = document.createElement('button');
 
-(async function () {
-  const userCity = await defineUserCity();
+  button.innerText = 'Show weather';
 
-  const userCityWeather = await getWeather(userCity);
+  button.addEventListener('click', buttonClick);
 
-  const userCityData = createData(userCityWeather);
-
-  createBlock(document.getElementById('app'), 'block1', 'prep');
-  createParagraph(document.getElementById('block1'), 'Weather in your city:');
-  createParagraph(document.getElementById('block1'), userCityData);
-}());
-
-// draw elements
-createBlock(document.getElementById('app'), 'block2');
-createParagraph(document.getElementById('block2'), 'Enter a city name:');
-createInput(document.getElementById('block2'));
-createButton(document.getElementById('block2'));
-
-createBlock(document.getElementById('app'), 'block3');
-createParagraph(document.getElementById('block3'), '');
-
-createBlock(document.getElementById('app'), 'imageBlock');
-createImgOfCityMap(document.getElementById('imageBlock'));
-
-createBlock(document.getElementById('app'), 'history');
-createParagraph(document.getElementById('history'), 'History of search:');
-
-createBlock(document.getElementById('app'), 'block4');
-
-readFromStorage();
+  elem.append(button);
+}
