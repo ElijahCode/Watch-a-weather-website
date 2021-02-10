@@ -86,11 +86,8 @@ export function changeSourceOfImage(elem, data) {
   const longitude = data.coord.lon;
 
   const image = elem.getElementsByTagName('img').item(0);
-  console.log(elem);
 
-  const imgSource = `
-  http://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=10&size=400x400&key=AIzaSyAu9cQhEoU0Uj0-GkEBnWGP_4WpRdos6LU
-  `;
+  const imgSource = `http://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=10&size=400x400&key=AIzaSyAu9cQhEoU0Uj0-GkEBnWGP_4WpRdos6LU`;
 
   image.src = imgSource;
 }
@@ -118,8 +115,8 @@ export function addToStorage(data) {
   }
 }
 
-export function addCityToList(cityName) {
-  const list = document.getElementById('block4');
+export function addCityToList(cityName, blockId = 'block4') {
+  const list = document.getElementById(blockId);
 
   const paragOfList = list.getElementsByTagName('p');
 
@@ -138,7 +135,7 @@ export function addCityToList(cityName) {
   parag.addEventListener('click', getWeatherByClick);
 
   addToStorage(cityName);
-  console.log(localStorage);
+
   return null;
 }
 
@@ -152,7 +149,7 @@ export function initStorage() {
   return null;
 }
 
-export async function readFromStorage() {
+export async function readFromStorage(blockId) {
   if (localStorage.length === 0) {
     return null;
   }
@@ -164,7 +161,7 @@ export async function readFromStorage() {
       break;
     }
 
-    const parag = createParagraph(document.getElementById('block4'), value);
+    const parag = createParagraph(document.getElementById(blockId), value);
     parag.addEventListener('click', getWeatherByClick);
   }
   return null;

@@ -43,4 +43,4 @@ createParagraph(document.getElementById('history'), 'History of search:');
 
 createBlock(document.getElementById('app'), 'block4');
 
-readFromStorage();
+readFromStorage('block4');
