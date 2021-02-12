@@ -1,3 +1,5 @@
+![PR Sanity Check](https://github.com/ElijahCode/Watch-a-weather-website/workflows/PR%20Sanity%20Check/badge.svg)
+
 # This is the ElijaCode Weather site repository
 
 ## Usage

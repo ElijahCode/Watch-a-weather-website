@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  watch: true,
   entry: "./compiled/bin.js",
   output: {
     filename: "main.js",

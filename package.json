@@ -7,8 +7,10 @@
     "test": "jest",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint . --fix",
-    "babel": "npx babel src --watch --out-dir compiled",
-    "build": "webpack",
+    "babel":"npx babel src --out-dir compiled",
+    "babel:watch": "npx babel src --watch --out-dir compiled",
+    "build":"webpack",
+    "build:watch": "webpack --watch",
     "dev": "webpack serve",
     "deploy": "gh-pages -d dist"
   },
