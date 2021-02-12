@@ -13,5 +13,11 @@ module.exports = {
     compress: true,
     port: 8080,
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      //title: 'webpack Boilerplate',
+      template: path.resolve(__dirname, "./index.html"), // шаблон
+      filename: "index.html", // название выходного файла
+    }),
+  ],
 };
