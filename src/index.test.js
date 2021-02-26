@@ -165,6 +165,12 @@ it("Testing getweatherByClick with eventListener", async () => {
 
   liElem.click();
 
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  await sleep(1);
+
   expect(parag.innerText).toEqual(expect.not.stringContaining("No data"));
   expect(image.src).toEqual(expect.not.stringContaining("No data"));
 });
@@ -206,6 +212,61 @@ it("Testing buttonClick", async () => {
     document.querySelector(".list"),
     image
   );
+
+  expect(changedParag.innerText).toEqual(
+    expect.not.stringContaining("No data")
+  );
+  expect(image.src).toEqual(expect.not.stringContaining("No data"));
+});
+
+it("Testing buttonClick with EventListener", async () => {
+  fetch.mockImplementationOnce(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(data),
+    })
+  );
+
+  initStorage();
+
+  document.body.innerHTML = `
+    <div class = 'listBox'>
+        <ol class = 'list'></ol>
+    </div>
+    <div class = 'requaredCity'>
+        <input tupe = "text" class = "textBox">
+        <img class = 'cityMap'>
+        <button class ='button'></button>
+        <p><p>
+    </div>`;
+
+  const list = document.querySelector(".list");
+
+  const input = document.querySelector(".textBox");
+  input.value = "Moscow";
+
+  const image = document.querySelector(".cityMap");
+  image.src = "No data";
+
+  const button = document.querySelector(".button");
+
+  const changedParag = document
+    .querySelector(".requaredCity")
+    .getElementsByTagName("p")
+    .item(0);
+  changedParag.innerText = "No data";
+
+  button.addEventListener(
+    "click",
+    buttonClick.bind(null, input, changedParag, list, image)
+  );
+
+  async function sleep(ms) {
+    return new Promise((resolve) => setInterval(resolve, ms));
+  }
+
+  button.click();
+
+  await sleep(1);
 
   expect(changedParag.innerText).toEqual(
     expect.not.stringContaining("No data")
