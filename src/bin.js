@@ -1,19 +1,46 @@
+import { createData } from "./formingData";
 import {
-  createParagraph,
-  createInput,
-  createButton,
-  createBlock,
-  createImgOfCityMap,
-  getWeather,
   defineUserCity,
-  createData,
-  initStorage,
-  readFromStorage,
+  getWeather,
+  buttonClick,
+  getWeatherByClick,
 } from "./index";
+import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
+import { initStorage, readFromStorage } from "./workWithStorage";
 
-// draw elemets and show weather in user city
 initStorage();
+const historyList = readFromStorage();
 
+const inputElem = document.querySelector(".textbox");
+const paragElem = document
+  .querySelector(".requaredCity")
+  .getElementsByTagName("p")
+  .item(0);
+const listElem = document.querySelector(".historyList");
+const imageElem = document.querySelector(".cityMap");
+
+document
+  .querySelector(".button")
+  .addEventListener(
+    "click",
+    buttonClick.bind(null, inputElem, paragElem, listElem, imageElem)
+  );
+
+// draw history list
+if (historyList.lenght !== 0) {
+  historyList.map((elem) => {
+    const li = document.createElement("li");
+    li.innerText = elem;
+    document.querySelector(".historyList").append(li);
+    return elem;
+  });
+}
+
+document
+  .querySelector(".historyList")
+  .addEventListener("click", getWeatherByClick, true);
+
+// show weather in user city
 (async function () {
   const userCity = await defineUserCity();
 
@@ -21,26 +48,9 @@ initStorage();
 
   const userCityData = createData(userCityWeather);
 
-  createBlock(document.getElementById("app"), "block1", "prep");
-  createParagraph(document.getElementById("block1"), "Weather in your city:");
-  createParagraph(document.getElementById("block1"), userCityData);
+  rewriteParagraph(
+    document.querySelector(".userCityBlock").getElementsByTagName("p").item(0),
+    userCityData
+  );
+  changeSourceOfImage(document.querySelector(".cityMap"), userCityWeather);
 })();
-
-// draw elements
-createBlock(document.getElementById("app"), "block2");
-createParagraph(document.getElementById("block2"), "Enter a city name:");
-createInput(document.getElementById("block2"));
-createButton(document.getElementById("block2"));
-
-createBlock(document.getElementById("app"), "block3");
-createParagraph(document.getElementById("block3"), "");
-
-createBlock(document.getElementById("app"), "imageBlock");
-createImgOfCityMap(document.getElementById("imageBlock"));
-
-createBlock(document.getElementById("app"), "history");
-createParagraph(document.getElementById("history"), "History of search:");
-
-createBlock(document.getElementById("app"), "block4");
-
-readFromStorage("block4");

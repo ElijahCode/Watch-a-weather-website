@@ -10,5 +10,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["jest"],
-  rules: {},
+  rules: {
+    "import/prefer-default-export": "off",
+  },
 };
