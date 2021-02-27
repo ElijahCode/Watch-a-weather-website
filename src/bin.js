@@ -7,6 +7,7 @@ import {
 } from "./index";
 import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
+import "./css/style.css";
 
 initStorage();
 const historyList = readFromStorage();
