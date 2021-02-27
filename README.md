@@ -1,4 +1,5 @@
 ![PR Sanity Check](https://github.com/ElijahCode/Watch-a-weather-website/workflows/PR%20Sanity%20Check/badge.svg)
+[![codecov](https://codecov.io/gh/ElijahCode/Watch-a-weather-website/branch/master/graph/badge.svg?token=5jgD9XOg49)](https://codecov.io/gh/ElijahCode/Watch-a-weather-website)
 
 # This is the ElijaCode Weather site repository
 
