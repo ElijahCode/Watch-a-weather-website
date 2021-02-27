@@ -4,7 +4,7 @@ import {
   getWeather,
   buttonClick,
   getWeatherByClick,
-} from "./index";
+} from "./asyncFun";
 import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
 import "./css/style.css";

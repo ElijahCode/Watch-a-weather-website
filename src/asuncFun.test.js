@@ -3,7 +3,7 @@ import {
   defineUserCity,
   getWeatherByClick,
   buttonClick,
-} from "./index";
+} from "./asyncFun";
 import { initStorage } from "./workWithStorage";
 
 global.fetch = jest.fn();
