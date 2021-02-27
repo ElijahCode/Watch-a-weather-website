@@ -10,7 +10,6 @@ import { initStorage, readFromStorage } from "./workWithStorage";
 import "./css/style.css";
 
 initStorage();
-const historyList = readFromStorage();
 
 const inputElem = document.querySelector(".textbox");
 const paragElem = document
@@ -26,6 +25,8 @@ document
     "click",
     buttonClick.bind(null, inputElem, paragElem, listElem, imageElem)
   );
+
+const historyList = readFromStorage();
 
 // draw history list
 if (historyList.lenght !== 0) {
