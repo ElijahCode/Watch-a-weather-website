@@ -26,7 +26,7 @@ div.requaredCity {
 div.searchHistoryBlock {
   display: inline-block;
   width: 28.3%;
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
 img.cityMap {
