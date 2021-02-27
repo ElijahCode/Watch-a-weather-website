@@ -19,8 +19,4 @@ jobs:
 
       - name: Test check
         run: |
-          npm run test --coverage
-      
-      -name: Upload to CodeCov
-        run: | 
-          bash <(curl -s https://codecov.io/bash)
+          npm run test
