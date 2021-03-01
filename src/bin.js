@@ -9,7 +9,7 @@ import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
 import "./css/style.css";
 
-if (localStorage.length > 0 && !typeof localStorage.getItem("1") !== "object") {
+if (localStorage.length > 0 && !localStorage.getItem("1").includes("[")) {
   localStorage.clear();
 }
 
