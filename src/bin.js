@@ -9,6 +9,10 @@ import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
 import "./css/style.css";
 
+if (localStorage.length > 0 && !typeof localStorage.getItem("1") !== "object") {
+  localStorage.clear();
+}
+
 initStorage();
 
 const inputElem = document.querySelector(".textbox");
