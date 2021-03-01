@@ -21,16 +21,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      //title: 'webpack Boilerplate',
-      template: path.resolve(__dirname, "./index.html"), // шаблон
-      filename: "index.html", // название выходного файла
+      template: path.resolve(__dirname, "./index.html"),
+      filename: "index.html",
     }),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // all options are optional
       filename: "[name].css",
       chunkFilename: "[id].css",
-      ignoreOrder: false, // Enable to remove warnings about conflicting order
+      ignoreOrder: false,
     }),
   ],
 };

@@ -8,12 +8,7 @@ import {
 describe("Testing initStorage", () => {
   it("localStorage = []", () => {
     initStorage();
-    expect(localStorage.getItem("1")).toBe("[]");
-  });
-  it("localStorage not change", () => {
-    localStorage.setItem("1", JSON.stringify(["one", "two"]));
-    initStorage();
-    expect(localStorage.getItem("1")).toBe(JSON.stringify(["one", "two"]));
+    expect(localStorage.getItem("historyList")).toBe("[]");
   });
 });
 
@@ -23,14 +18,11 @@ describe("Testing addToStorage", () => {
     initStorage();
   });
 
-  it("localStorage not change", () => {
-    addToStorage("");
-    expect(localStorage.getItem("1")).toEqual(JSON.stringify([]));
-  });
-
   it("localStorage contain Moscow", () => {
     addToStorage("Moscow");
-    expect(localStorage.getItem("1")).toEqual(JSON.stringify(["Moscow"]));
+    expect(localStorage.getItem("historyList")).toEqual(
+      JSON.stringify(["Moscow"])
+    );
   });
 });
 
@@ -38,9 +30,12 @@ describe("Testing removeFromStorage", () => {
   it("localStorage must not contain Kiev", () => {
     localStorage.clear();
     initStorage();
-    localStorage.setItem("1", JSON.stringify(["Kiev", "Moscow", "Minsk"]));
+    localStorage.setItem(
+      "historyList",
+      JSON.stringify(["Kiev", "Moscow", "Minsk"])
+    );
     removeFromStorage();
-    expect(localStorage.getItem("1")).toEqual(
+    expect(localStorage.getItem("historyList")).toEqual(
       JSON.stringify(["Moscow", "Minsk"])
     );
   });
@@ -56,7 +51,7 @@ describe("Testing readFromStorage", () => {
   });
 
   it('Return ["Moscow", "Berlin"]', () => {
-    localStorage.setItem("1", JSON.stringify(["Moscow", "Berlin"]));
+    localStorage.setItem("historyList", JSON.stringify(["Moscow", "Berlin"]));
     expect(readFromStorage()).toEqual(["Moscow", "Berlin"]);
   });
 });

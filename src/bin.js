@@ -1,52 +1,55 @@
 import { createData } from "./formingData";
-import {
-  defineUserCity,
-  getWeather,
-  buttonClick,
-  getWeatherByClick,
-} from "./asyncFun";
+import { defineUserCity } from "./defineUserCityFun";
+import { getWeather, getWeatherByClick } from "./getWeatherFuns";
+import { buttonClick } from "./buttonEventsFun";
 import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
+import { addEventListenerFunc } from "./addEvenListenerFunc";
 import "./css/style.css";
 
-if (localStorage.length > 0 && !localStorage.getItem("1").includes("[")) {
+if (
+  localStorage.length > 0 &&
+  !localStorage.getItem("historyList").includes("[")
+) {
   localStorage.clear();
 }
 
-initStorage();
+if (localStorage.length === 0) {
+  initStorage();
+}
 
 const inputElem = document.querySelector(".textbox");
-const paragElem = document
-  .querySelector(".requaredCity")
-  .getElementsByTagName("p")
-  .item(0);
+const paragElem = document.querySelector(".weatherInReqCity");
 const listElem = document.querySelector(".historyList");
 const imageElem = document.querySelector(".cityMap");
 
-document
-  .querySelector(".button")
-  .addEventListener(
-    "click",
-    buttonClick.bind(null, inputElem, paragElem, listElem, imageElem)
-  );
+addEventListenerFunc(
+  document.querySelector("button"),
+  "click",
+  buttonClick,
+  inputElem,
+  paragElem,
+  listElem,
+  imageElem
+);
 
 const historyList = readFromStorage();
 
-// draw history list
 if (historyList.lenght !== 0) {
   historyList.map((elem) => {
     const li = document.createElement("li");
     li.innerText = elem;
-    document.querySelector(".historyList").append(li);
+    listElem.append(li);
     return elem;
   });
 }
 
-document
-  .querySelector(".historyList")
-  .addEventListener("click", getWeatherByClick, true);
+addEventListenerFunc(
+  document.querySelector(".historyList"),
+  "click",
+  getWeatherByClick
+);
 
-// show weather in user city
 (async function () {
   const userCity = await defineUserCity();
 

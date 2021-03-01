@@ -5,27 +5,22 @@ import {
   addCityToHistoryList,
 } from "./workWithHTML";
 import { initStorage } from "./workWithStorage";
+import { layout } from "./utils";
 
 describe("Testing getInputText", () => {
   it("Return Test", () => {
-    document.body.innerHTML = `
-            <input type = 'text' class = 'textbox'>
-        `;
-    document.querySelector(".textbox").value = "Test";
+    document.body.innerHTML = layout;
+    document.querySelector(".textBox").value = "Test";
 
-    expect(getInputText(document.querySelector(".textbox"))).toBe("Test");
+    expect(getInputText(document.querySelector(".textBox"))).toBe("Test");
   });
 });
 
 describe("Testing rewriteParagraph", () => {
   it("Must be equal Some text 2", () => {
-    document.body.innerHTML = `
-            <div class = 'textblock'>
-                <p></p>
-            </div>`;
+    document.body.innerHTML = layout;
 
-    const container = document.querySelector(".textblock");
-    const parag = container.getElementsByTagName("p").item(0);
+    const parag = document.getElementsByTagName("p").item(0);
     parag.innerText = "Some text";
 
     rewriteParagraph(parag, "Some text 2");
@@ -35,10 +30,7 @@ describe("Testing rewriteParagraph", () => {
 
 describe("Testing changeSourceOfImage", () => {
   it("Source must change", () => {
-    document.body.innerHTML = `
-        <div class = 'textblock'>
-            <img class = 'cityMap'>
-        </div>`;
+    document.body.innerHTML = layout;
 
     const testData = {
       coord: {
@@ -61,28 +53,16 @@ describe("Testing changeSourceOfImage", () => {
 
 describe("Testing addCityToHistoryList", () => {
   initStorage();
+  document.body.innerHTML = layout;
+
   it("list.length must be 1", () => {
-    document.body.innerHTML = `
-        <div class = 'listBlock'>
-            <ol class = 'list'>
-                <li>
-            </ol>;
-        </div>`;
-
     const list = document.querySelector(".list");
-    list.getElementsByTagName("li").item(0).innerText = "Moscow";
-
     addCityToHistoryList("Moscow", list);
 
     expect(list.getElementsByTagName("li").length).toBe(1);
   });
 
   it("list length must be 10 or less", () => {
-    document.body.innerHTML = `
-        <div class = 'listBlock'>
-            <ol class = 'list'></ol>;
-        </div>`;
-
     const list = document.querySelector(".list");
     const cities = [
       "Moscow",
@@ -94,7 +74,6 @@ describe("Testing addCityToHistoryList", () => {
       "Perm",
       "Gamburg",
       "Novgorod",
-      "Kursk",
     ];
 
     cities.map((elem) => {
@@ -112,11 +91,6 @@ describe("Testing addCityToHistoryList", () => {
   it('list.item(9).innerText = "Leon"', () => {
     localStorage.clear();
     initStorage();
-
-    document.body.innerHTML = `
-        <div class = 'listBlock'>
-            <ol class = 'list'></ol>;
-        </div>`;
 
     const list = document.querySelector(".list");
     const cities = [

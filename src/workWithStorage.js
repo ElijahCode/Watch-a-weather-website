@@ -1,28 +1,17 @@
 export function initStorage() {
-  if (localStorage.length > 0) {
-    return null;
-  }
-
-  localStorage.setItem("1", JSON.stringify([]));
-
-  return null;
+  localStorage.setItem("historyList", JSON.stringify([]));
 }
 
 export function addToStorage(data) {
-  if (data === "") {
-    return null;
-  }
-  const storage = JSON.parse(localStorage.getItem("1"));
+  const storage = JSON.parse(localStorage.getItem("historyList"));
   storage.push(data);
-  localStorage.setItem("1", JSON.stringify(storage));
-
-  return null;
+  localStorage.setItem("historyList", JSON.stringify(storage));
 }
 
 export function removeFromStorage() {
-  const storage = JSON.parse(localStorage.getItem("1"));
+  const storage = JSON.parse(localStorage.getItem("historyList"));
   storage.shift();
-  localStorage.setItem("1", JSON.stringify(storage));
+  localStorage.setItem("historyList", JSON.stringify(storage));
 
   return storage;
 }
@@ -32,5 +21,5 @@ export function readFromStorage() {
     return null;
   }
 
-  return JSON.parse(localStorage.getItem("1"));
+  return JSON.parse(localStorage.getItem("historyList"));
 }
