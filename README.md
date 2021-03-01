@@ -1,6 +1,3 @@
-![PR Sanity Check](https://github.com/ElijahCode/Watch-a-weather-website/workflows/PR%20Sanity%20Check/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/ElijahCode/Watch-a-weather-website/badge.svg?branch=development)](https://coveralls.io/github/ElijahCode/Watch-a-weather-website?branch=development)
-
 # This is the ElijaCode Weather site repository
 
 ## Available features
