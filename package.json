@@ -8,6 +8,7 @@
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint . --fix",
     "build": "webpack",
+    "build:prod": "webpack --mode production",
     "build:watch": "webpack --watch",
     "dev": "webpack serve"
   },
