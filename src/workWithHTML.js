@@ -1,5 +1,5 @@
 import { addToStorage, removeFromStorage } from "./workWithStorage";
-import { historyListLength, mapSize } from "./config";
+import { HISTORY_LIST_LENGTH, mapSize } from "./config";
 
 export function getInputText(elem) {
   const text = elem.value;
@@ -31,7 +31,7 @@ export function addCityToHistoryList(cityName, parentElem) {
     return null;
   }
 
-  if (membersOfList.length > historyListLength) {
+  if (membersOfList.length > HISTORY_LIST_LENGTH) {
     parentElem.removeChild(membersOfList.item(0));
     removeFromStorage();
   }

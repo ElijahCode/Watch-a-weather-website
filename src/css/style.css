@@ -6,30 +6,30 @@ div {
   padding: 0px;
 }
 
-div.app {
+.app {
   width: 100%;
 }
 
-div.userCityBlock {
+.userCityBlock {
   display: inline-block;
   width: 33.3%;
   vertical-align: top;
 }
 
-div.requaredCity {
+.requaredCity {
   display: inline-block;
   width: 36%;
   padding-top: 10px;
   vertical-align: top;
 }
 
-div.searchHistoryBlock {
+.searchHistoryBlock {
   display: inline-block;
   width: 28.3%;
   vertical-align: top;
 }
 
-img.cityMap {
+.cityMap {
   position: relative;
   left: 35%;
 }

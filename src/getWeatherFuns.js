@@ -3,9 +3,9 @@ import { rewriteParagraph, changeSourceOfImage } from "./workWithHTML";
 
 export async function getWeather(cityName) {
   try {
-    const URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=29322a2e1ecf125b380cfcee03239f35&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=29322a2e1ecf125b380cfcee03239f35&units=metric`;
 
-    const response = await fetch(URL);
+    const response = await fetch(url);
     const jsonData = await response.json();
 
     return jsonData;
@@ -21,10 +21,7 @@ export async function getWeatherByClick(element) {
 
   const data = createData(weather);
 
-  const paragElem = document
-    .querySelector(".requaredCity")
-    .getElementsByTagName("p")
-    .item(0);
+  const paragElem = document.querySelector(".weatherInReqCity");
   const imageElem = document.querySelector(".cityMap");
 
   rewriteParagraph(paragElem, data);

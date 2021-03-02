@@ -44,8 +44,6 @@ it("Testing buttonClick", async () => {
 
   expect(result).toBeFalsy();
 
-  fetch.mockClear();
-
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
       json: () => Promise.resolve(data),

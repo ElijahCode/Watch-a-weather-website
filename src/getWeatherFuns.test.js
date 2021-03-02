@@ -20,7 +20,7 @@ it("getWeather: Promise is rejected", async () => {
     Promise.rejected("Something goes to bad way!")
   );
   await getWeather("Moscow");
-  expect(console.log).toHaveBeenCalled();
+  expect(console.log).toHaveBeenCalledWith("Can not downoload weather data!");
 });
 
 it("Testing get weatherByClick", async () => {
@@ -49,8 +49,6 @@ it("Testing get weatherByClick", async () => {
 
   expect(parag.innerText).toEqual(expect.not.stringContaining("No data"));
   expect(image.src).toEqual(expect.not.stringContaining("No data"));
-
-  fetch.mockClear();
 
   fetch.mockImplementationOnce(() =>
     Promise.resolve({

@@ -7,13 +7,6 @@ import { initStorage, readFromStorage } from "./workWithStorage";
 import { addEventListenerFunc } from "./addEvenListenerFunc";
 import "./css/style.css";
 
-if (
-  localStorage.length > 0 &&
-  !localStorage.getItem("historyList").includes("[")
-) {
-  localStorage.clear();
-}
-
 if (localStorage.length === 0) {
   initStorage();
 }
@@ -36,11 +29,10 @@ addEventListenerFunc(
 const historyList = readFromStorage();
 
 if (historyList.lenght !== 0) {
-  historyList.map((elem) => {
+  historyList.forEach((elem) => {
     const li = document.createElement("li");
     li.innerText = elem;
     listElem.append(li);
-    return elem;
   });
 }
 

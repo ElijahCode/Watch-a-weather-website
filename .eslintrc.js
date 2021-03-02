@@ -12,5 +12,7 @@ module.exports = {
   plugins: ["jest"],
   rules: {
     "import/prefer-default-export": "off",
+    "no-console": "off",
+    "func-names": "off",
   },
 };

@@ -22,5 +22,7 @@ it("defineUserCity: Promise is rejected", async () => {
     Promise.rejected("Something goes to bad way!")
   );
   await defineUserCity();
-  expect(console.log).toHaveBeenCalled();
+  expect(console.log).toHaveBeenCalledWith(
+    "Can not downoload data about your city!"
+  );
 });
