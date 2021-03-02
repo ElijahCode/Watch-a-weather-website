@@ -11,7 +11,7 @@ export async function buttonClick(inputElem, paragElem, listElem, imageElem) {
   const cityName = getInputText(inputElem);
 
   if (cityName === "") {
-    return false;
+    return console.log("Empty city requare!");
   }
 
   const weather = await getWeather(cityName);

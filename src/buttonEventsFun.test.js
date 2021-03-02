@@ -8,42 +8,20 @@ import { sleep, layout, data } from "./utils";
 
 global.fetch = jest.fn();
 
-it("Testing buttonClick", async () => {
-  fetch.mockImplementationOnce(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(data),
-    })
-  );
+initStorage();
 
-  initStorage();
+document.body.innerHTML = layout;
 
-  document.body.innerHTML = layout;
+const input = document.querySelector(".textBox");
+input.value = "Moscow";
 
-  const input = document.querySelector(".textBox");
-  input.value = "Moscow";
+const image = document.querySelector(".cityMap");
+image.src = "No data";
 
-  const image = document.querySelector(".cityMap");
-  image.src = "No data";
+const changedParag = document.querySelector(".weatherInReqCity");
+changedParag.innerText = "No data";
 
-  const changedParag = document.querySelector(".weatherInReqCity");
-  changedParag.innerText = "No data";
-
-  const result = await buttonClick(
-    input,
-    changedParag,
-    document.querySelector(".list"),
-    image
-  );
-
-  expect(changedParag.innerText).toEqual(
-    expect.not.stringContaining("No data")
-  );
-  expect(image.src).toEqual(expect.not.stringContaining("No data"));
-
-  input.value = "";
-
-  expect(result).toBeFalsy();
-
+it("Testing buttonCLick", async () => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
       json: () => Promise.resolve(data),
@@ -75,4 +53,14 @@ it("Testing buttonClick", async () => {
     expect.not.stringContaining("No data")
   );
   expect(image.src).toEqual(expect.not.stringContaining("No data"));
+
+  jest.spyOn(console, "log");
+
+  input.value = "";
+
+  button.click();
+
+  await sleep(1);
+
+  expect(console.log).toBeCalledWith("Empty city requare!");
 });

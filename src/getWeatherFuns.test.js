@@ -45,20 +45,6 @@ it("Testing get weatherByClick", async () => {
   const parag = document.querySelector(".weatherInReqCity");
   parag.innerText = "No data";
 
-  await getWeatherByClick({ target: liElem });
-
-  expect(parag.innerText).toEqual(expect.not.stringContaining("No data"));
-  expect(image.src).toEqual(expect.not.stringContaining("No data"));
-
-  fetch.mockImplementationOnce(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(data),
-    })
-  );
-
-  parag.innerText = "No data";
-  image.src = "No data";
-
   addEventListenerFunc(
     document.querySelector(".list"),
     "click",
