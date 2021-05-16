@@ -39,10 +39,7 @@ describe("Testing changeSourceOfImage", () => {
       },
     };
 
-    const result =
-      `http://maps.googleapis.com/maps/api/staticmap?center=${testData.coord.lat},` +
-      `${testData.coord.lon}&zoom=10&size=400x400&key=AIzaSyAu9cQhEoU0Uj0-` +
-      "GkEBnWGP_4WpRdos6LU";
+    const result = `https://static-maps.yandex.ru/1.x/?ll=${testData.coord.lon},${testData.coord.lat}&size=400,400&z=12&l=map&pt=37.620070,55.753630,pmwtm1~37.64,55.76363,pmwtm99`;
 
     const img = document.querySelector(".cityMap");
     img.src = "someSource";
