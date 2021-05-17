@@ -17,8 +17,7 @@ export function changeSourceOfImage(elem, data) {
 
   const image = elem;
 
-  const imgSource = `http://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=10&size=${mapSize.height}x${mapSize.width}&key=AIzaSyAu9cQhEoU0Uj0-GkEBnWGP_4WpRdos6LU`;
-
+  const imgSource = `https://static-maps.yandex.ru/1.x/?ll=${longitude},${latitude}&size=${mapSize.height},${mapSize.width}&z=12&l=map&pt=37.620070,55.753630,pmwtm1~37.64,55.76363,pmwtm99`;
   image.src = imgSource;
 }
 
