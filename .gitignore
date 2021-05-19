@@ -4,3 +4,4 @@ dist
 coverage
 compiled
 .prettierignore
+src/templateEngine&Component/basicComponent

@@ -9,9 +9,16 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
+  resolve: {
+    extensions: [".js", ".ts"],
+  },
   module: {
     rules: [
       { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] },
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+      },
     ],
   },
   devServer: {
