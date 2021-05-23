@@ -4,4 +4,3 @@ dist
 coverage
 compiled
 .prettierignore
-src/basicComponent
