@@ -36,6 +36,7 @@ export type WeatherState = {
 };
 
 export type convertedWeatherState = {
+  [key: string]: any;
   name: string;
   weather: string;
   temp: number;

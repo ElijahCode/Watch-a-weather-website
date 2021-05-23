@@ -10,7 +10,7 @@ describe("Testing BasicComponent class", () => {
     expect(component.state).toEqual({ cities: [{ city: "" }] });
   });
   it("Check hook onMount", () => {
-    expect(list.innerHTML).toBe("<li> </li>\n");
+    expect(list.innerHTML).toBe("");
   });
   it("Can change state", () => {
     component.setState({ cities: [{ city: "Moscow" }] });
@@ -20,7 +20,6 @@ describe("Testing BasicComponent class", () => {
     const events: eventsList = {
       click: () => component.setState({ cities: [{ city: "Volgograd" }] }),
     };
-    expect(component.events).toEqual(undefined);
     component.events = events;
     expect(component.events).toEqual(events);
   });

@@ -1,6 +1,17 @@
 import { WeatherInCityComp } from "./weatherInCityComp";
 import { convertedWeatherState, eventsList } from "../types";
-import { WEATHER_BEFORE_FIRST_DEFINE } from "../../config";
+
+const WEATHER_BEFORE_FIRST_DEFINE = {
+  weather: "",
+  base: "",
+  temp: 0,
+  tempFeelsLike: 0,
+  pressure: 0,
+  humidity: 0,
+  visibility: 0,
+  windSpeed: 0,
+  name: "",
+};
 
 describe("Testing BasicComponent class", () => {
   const divBlock = document.createElement("div");
@@ -23,7 +34,6 @@ describe("Testing BasicComponent class", () => {
     const events: eventsList = {
       click: () => component.setState({ name: "Volgograd" }),
     };
-    expect(component.events).toEqual(undefined);
     component.events = events;
     expect(component.events).toEqual(events);
   });

@@ -1,6 +1,5 @@
 import { Component } from "../ComponentClass";
-import { ComponentState, CityListState } from "../types";
-import { WEATHER_BEFORE_FIRST_DEFINE } from "../../config";
+import { CityListState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
 
 const tpl = `{{for data as cities}}
@@ -12,7 +11,9 @@ export class HistoryListComp implements Component {
 
   private el: HTMLElement;
 
-  public events;
+  public events: eventsList = {
+    defaultEvent: () => null,
+  };
 
   constructor(el: HTMLElement, initialState?: CityListState) {
     this.el = el;
@@ -27,13 +28,13 @@ export class HistoryListComp implements Component {
   subscribeToEvents(): void {
     Object.keys(this.events).forEach((key) => {
       const [event, elemClass] = key.split("@");
-      const element = document.querySelector(`.${elemClass}`);
+      const element = document.querySelector(`.${elemClass}`) as HTMLElement;
       element.addEventListener(event, this.events[key], true);
     });
   }
 
   onMount(el: HTMLElement): void {
-    this.render();
+    this.el.innerHTML = this.el.innerHTML; // eslint-disable-line no-self-assign
   }
 
   render(): string {

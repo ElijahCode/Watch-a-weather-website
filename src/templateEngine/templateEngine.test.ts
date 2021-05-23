@@ -4,7 +4,15 @@ const test2 = `{{for tags as item}}
 <a class="tag" href="#tag{{item.id}}"> {{item.title}} </a>`;
 
 describe("template", () => {
-  const data = {
+  type testData = {
+    NAME: string;
+    AGE: string;
+    TEAM: string;
+    items: { A: number; B: number }[];
+    author: undefined | string;
+    isRendering: boolean;
+  };
+  const data: testData = {
     NAME: "Bob",
     AGE: "18",
     TEAM: "Core",

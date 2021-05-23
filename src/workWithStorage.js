@@ -1,5 +1,8 @@
 export function initStorage() {
-  localStorage.setItem("historyList", JSON.stringify({ cities: [] }));
+  localStorage.setItem(
+    "historyList",
+    JSON.stringify({ cities: [{ city: "" }] })
+  );
 }
 
 export function addToStorage(data) {

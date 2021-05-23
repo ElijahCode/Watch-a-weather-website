@@ -1,19 +1,29 @@
-import { createData } from "./formingData";
 import { defineUserCity } from "./defineUserCityFun";
 import { getWeather, getWeatherByClick } from "./getWeatherFuns";
 import { buttonClick } from "./buttonEventsFun";
 import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
 import { addEventListenerFunc } from "./addEvenListenerFunc";
+import { WeatherInCityComp } from "./components/weatherinCityComp/weatherInCityComp";
+import { HistoryListComp } from "./components/historyListComp/historyListComp";
+import { dataConverter } from "./dataConverter/dataConverter";
 import "./css/style.css";
 
 if (localStorage.length === 0) {
   initStorage();
 }
 
+const userCityParagraph = new WeatherInCityComp(
+  document.querySelector(".userCityBlock").getElementsByTagName("p").item(1)
+);
+
+const requearedCityParagraph = new WeatherInCityComp(
+  document.querySelector(".weatherInReqCity")
+);
+
+const historyList = new HistoryListComp(document.querySelector(".historyList"));
+
 const inputElem = document.querySelector(".textbox");
-const paragElem = document.querySelector(".weatherInReqCity");
-const listElem = document.querySelector(".historyList");
 const imageElem = document.querySelector(".cityMap");
 
 addEventListenerFunc(
@@ -21,20 +31,20 @@ addEventListenerFunc(
   "click",
   buttonClick,
   inputElem,
-  paragElem,
-  listElem,
+  requearedCityParagraph,
+  historyList,
   imageElem
 );
 
-const historyList = readFromStorage();
-
-if (historyList.lenght !== 0) {
-  historyList.forEach((elem) => {
-    const li = document.createElement("li");
-    li.innerText = elem;
-    listElem.append(li);
-  });
+const historyListInStorage = readFromStorage();
+if (historyListInStorage.cities[0].city !== "") {
+  historyList.setState(historyListInStorage);
 }
+historyList.events = {
+  "click@historyList": getWeatherByClick,
+};
+
+historyList.subscribeToEvents();
 
 addEventListenerFunc(
   document.querySelector(".historyList"),
@@ -47,11 +57,9 @@ addEventListenerFunc(
 
   const userCityWeather = await getWeather(userCity);
 
-  const userCityData = createData(userCityWeather);
+  const userCityData = dataConverter(userCityWeather);
 
-  rewriteParagraph(
-    document.querySelector(".userCityBlock").getElementsByTagName("p").item(0),
-    userCityData
-  );
+  userCityParagraph.setState(userCityData);
+
   changeSourceOfImage(document.querySelector(".cityMap"), userCityWeather);
 })();

@@ -1,6 +1,5 @@
 import { Component } from "../ComponentClass";
-import { ComponentState, convertedWeatherState } from "../types";
-import { WEATHER_BEFORE_FIRST_DEFINE } from "../../config";
+import { ComponentState, convertedWeatherState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
 
 const tpl = `In {{name}} now is
@@ -11,14 +10,28 @@ Humidity:{{humidity}}%,
 Atmospheric pressure: {{pressure}} Pa,
 Wind speed: {{windSpeed}} m/s`;
 
+const WEATHER_BEFORE_FIRST_DEFINE = {
+  weather: "",
+  base: "",
+  temp: 0,
+  tempFeelsLike: 0,
+  pressure: 0,
+  humidity: 0,
+  visibility: 0,
+  windSpeed: 0,
+  name: "",
+};
+
 export class WeatherInCityComp implements Component {
   private el: HTMLElement;
 
   state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE as convertedWeatherState;
 
-  public events;
+  public events: eventsList = {
+    defaultEvent: () => null,
+  };
 
-  constructor(el: HTMLElement, initialState?: Partial<ComponentState>) {
+  constructor(el: HTMLElement, initialState?: Partial<convertedWeatherState>) {
     this.el = el;
     initialState ? this.setState(initialState) : this.onMount(el); // eslint-disable-line no-unused-expressions
   }
@@ -27,12 +40,12 @@ export class WeatherInCityComp implements Component {
   subscribeToEvents(): void {
     Object.keys(this.events).forEach((key) => {
       const [event, elemClass] = key.split("@");
-      const element = document.querySelector(`.${elemClass}`);
+      const element = document.querySelector(`.${elemClass}`) as HTMLElement;
       element.addEventListener(event, this.events[key]);
     });
   }
 
-  setState(newState: Partial<ComponentState>): void {
+  setState(newState: Partial<convertedWeatherState>): void {
     Object.keys(newState).forEach((key) => {
       this.state[key] = newState[key];
     });

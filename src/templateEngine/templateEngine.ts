@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function template(tpl: string, data: object): string {
+export function template(tpl: string, data: { [key: string]: any }): string {
   return tpl
     .replace(
       /{{if (\w+)}}\n?([a-zA-Z0-9{}<>"#!.,/= ]{1,})\n?{{endif}}/gm,
@@ -18,13 +18,15 @@ export function template(tpl: string, data: object): string {
         let firstIndex: string;
         let lastIndex: string;
         /* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
-        if (firstLastItemInstr[0]) {
-          /isFirst/.test(firstLastItemInstr[0])
-            ? (firstIndex = firstLastItemInstr[1]) // eslint-disable-line prefer-destructuring
-            : (lastIndex = firstLastItemInstr[1]); // eslint-disable-line prefer-destructuring
+        if (/isFirst/.test(firstLastItemInstr[0])) {
+          firstIndex = firstLastItemInstr[1]; // eslint-disable-line prefer-destructuring
+          lastIndex = firstLastItemInstr[3]; // eslint-disable-line prefer-destructuring
+        } else if (
+          /isLast/.test(firstLastItemInstr[0]) ||
+          firstLastItemInstr[3]
+        ) {
+          lastIndex = firstLastItemInstr[3]; // eslint-disable-line prefer-destructuring
         }
-
-        lastIndex = firstIndex !== "" ? firstLastItemInstr[3] : "";
         // eslint-disable-next-line @typescript-eslint/ban-types
         data[listKey].forEach((el: object, index: number) => {
           let listItemTemplateClone: string;

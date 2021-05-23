@@ -9,7 +9,7 @@ describe("Testing initStorage", () => {
   it("localStorage = {cities: []}", () => {
     initStorage();
     expect(JSON.parse(localStorage.getItem("historyList"))).toEqual({
-      cities: [],
+      cities: [{ city: "" }],
     });
   });
 });
@@ -23,7 +23,7 @@ describe("Testing addToStorage", () => {
   it("localStorage contain Moscow", () => {
     addToStorage("Moscow");
     expect(localStorage.getItem("historyList")).toEqual(
-      JSON.stringify({ cities: [{ city: "Moscow" }] })
+      JSON.stringify({ cities: [{ city: "" }, { city: "Moscow" }] })
     );
   });
 });
