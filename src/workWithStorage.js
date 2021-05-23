@@ -1,16 +1,16 @@
 export function initStorage() {
-  localStorage.setItem("historyList", JSON.stringify([]));
+  localStorage.setItem("historyList", JSON.stringify({ cities: [] }));
 }
 
 export function addToStorage(data) {
   const storage = JSON.parse(localStorage.getItem("historyList"));
-  storage.push(data);
+  storage.cities.push({ city: data });
   localStorage.setItem("historyList", JSON.stringify(storage));
 }
 
 export function removeFromStorage() {
   const storage = JSON.parse(localStorage.getItem("historyList"));
-  storage.shift();
+  storage.cities.shift();
   localStorage.setItem("historyList", JSON.stringify(storage));
 
   return storage;
