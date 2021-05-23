@@ -1,11 +1,6 @@
 import { WeatherInCityComp } from "./weatherInCityComp";
-import { convertedWeatherState } from "../types";
-import { data } from "../../utils";
+import { convertedWeatherState, eventsList } from "../types";
 import { WEATHER_BEFORE_FIRST_DEFINE } from "../../config";
-
-type eventsList = {
-  [key: string]: (ev: Event) => void;
-};
 
 describe("Testing BasicComponent class", () => {
   const divBlock = document.createElement("div");
@@ -14,6 +9,11 @@ describe("Testing BasicComponent class", () => {
   const component = new WeatherInCityComp(divBlock);
   it("Have basic state", () => {
     expect(component.state).toEqual(WEATHER_BEFORE_FIRST_DEFINE);
+  });
+  it("Check hook onMount", () => {
+    expect(divBlock.innerHTML).toBe(
+      "In  now is\n,\nTemperature:  C,\nTemperature is feels like:  C,\nHumidity:%,\nAtmospheric pressure:  Pa,\nWind speed:  m/s"
+    );
   });
   it("Can change state", () => {
     component.setState({ name: "Moscow" });
@@ -36,11 +36,6 @@ describe("Testing BasicComponent class", () => {
     divBlock.click();
 
     expect(component.state.name).toBe("Volgograd");
-  });
-  it("Check hook onMount", () => {
-    expect(divBlock.innerHTML).toBe(
-      "In  now is\n,\nTemperature:  C,\nTemperature is feels like:  C,\nHumidity:%,\nAtmospheric pressure:  Pa,\nWind speed:  m/s"
-    );
   });
   it("Render method test", () => {
     const inputData: convertedWeatherState = {

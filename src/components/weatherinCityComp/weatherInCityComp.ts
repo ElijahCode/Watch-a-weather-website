@@ -16,9 +16,7 @@ export class WeatherInCityComp implements Component {
 
   state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE as convertedWeatherState;
 
-  events: {
-    [key: string]: (ev: Event) => void;
-  };
+  public events;
 
   constructor(el: HTMLElement, initialState?: Partial<ComponentState>) {
     this.el = el;
@@ -38,6 +36,7 @@ export class WeatherInCityComp implements Component {
     Object.keys(newState).forEach((key) => {
       this.state[key] = newState[key];
     });
+    this.render();
   }
 
   onMount(el: HTMLElement): void {

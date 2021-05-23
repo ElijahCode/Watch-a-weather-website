@@ -46,7 +46,11 @@ export type convertedWeatherState = {
 };
 
 export type CityListState = {
-  city: string;
-}[];
+  cities: { city: string }[];
+};
 
 export type ComponentState = convertedWeatherState | CityListState | undefined;
+
+export type eventsList = {
+  [key: string]: (ev: Event) => void;
+};
