@@ -25,7 +25,7 @@ const WEATHER_BEFORE_FIRST_DEFINE = {
 export class WeatherInCityComp implements Component {
   private el: HTMLElement;
 
-  state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE as convertedWeatherState;
+  public state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE as convertedWeatherState;
 
   public events: eventsList = {
     defaultEvent: () => null,

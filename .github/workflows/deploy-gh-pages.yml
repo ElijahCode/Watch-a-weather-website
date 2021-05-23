@@ -3,7 +3,7 @@ name: Deploy to GithubPages
 on:
   push:
     branches:
-      - development
+      - template-engine
 
 jobs:
   deploy-to-gh-pages:
