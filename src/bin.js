@@ -1,12 +1,12 @@
 import { defineUserCity } from "./defineUserCityFun";
 import { getWeather, getWeatherByClick } from "./getWeatherFuns";
 import { buttonClick } from "./buttonEventsFun";
-import { changeSourceOfImage, rewriteParagraph } from "./workWithHTML";
+import { changeSourceOfImage } from "./workWithHTML";
 import { initStorage, readFromStorage } from "./workWithStorage";
 import { addEventListenerFunc } from "./addEvenListenerFunc";
-import { WeatherInCityComp } from "./components/weatherinCityComp/weatherInCityComp";
-import { HistoryListComp } from "./components/historyListComp/historyListComp";
-import { dataConverter } from "./dataConverter/dataConverter";
+import { WeatherInCityComp } from "./ts/components/weatherinCityComp/weatherInCityComp";
+import { HistoryListComp } from "./ts/components/historyListComp/historyListComp";
+import { dataConverter } from "./ts/dataConverter/dataConverter";
 import "./css/style.css";
 
 if (localStorage.length === 0) {

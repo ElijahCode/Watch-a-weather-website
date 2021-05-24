@@ -1,10 +1,7 @@
 import { Component } from "../ComponentClass";
 import { CityListState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
-
-const tpl = `{{for data as cities}}
-<li> {{city}}</li>
-`;
+import { HISTORY_LIST_TPL } from "../../config";
 
 export class HistoryListComp implements Component {
   public state: CityListState = { cities: [{ city: "" }] };
@@ -38,7 +35,7 @@ export class HistoryListComp implements Component {
   }
 
   render(): string {
-    const result = template(tpl, this.state);
+    const result = template(HISTORY_LIST_TPL, this.state);
     this.el.innerHTML = result;
     return result;
   }

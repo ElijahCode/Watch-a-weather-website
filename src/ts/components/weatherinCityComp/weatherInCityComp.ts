@@ -1,26 +1,10 @@
 import { Component } from "../ComponentClass";
-import { ComponentState, convertedWeatherState, eventsList } from "../types";
+import { convertedWeatherState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
-
-const tpl = `In {{name}} now is
-{{weather}},
-Temperature: {{temp}} C,
-Temperature is feels like: {{tempFeelsLike}} C,
-Humidity:{{humidity}}%,
-Atmospheric pressure: {{pressure}} Pa,
-Wind speed: {{windSpeed}} m/s`;
-
-const WEATHER_BEFORE_FIRST_DEFINE = {
-  weather: "",
-  base: "",
-  temp: 0,
-  tempFeelsLike: 0,
-  pressure: 0,
-  humidity: 0,
-  visibility: 0,
-  windSpeed: 0,
-  name: "",
-};
+import {
+  WEATHER_IN_CITY_COMP_TPL,
+  WEATHER_BEFORE_FIRST_DEFINE,
+} from "../../config";
 
 export class WeatherInCityComp implements Component {
   private el: HTMLElement;
@@ -29,7 +13,7 @@ export class WeatherInCityComp implements Component {
     defaultEvent: () => null,
   };
 
-  public state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE as convertedWeatherState;
+  public state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE;
 
   constructor(el: HTMLElement, initialState?: Partial<convertedWeatherState>) {
     this.el = el;
@@ -57,7 +41,7 @@ export class WeatherInCityComp implements Component {
   }
 
   render(): string {
-    const result = template(tpl, this.state);
+    const result = template(WEATHER_IN_CITY_COMP_TPL, this.state);
     this.el.innerHTML = result;
     return result;
   }

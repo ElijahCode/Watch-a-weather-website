@@ -2,8 +2,8 @@ import { buttonClick } from "./buttonEventsFun";
 import { initStorage } from "./workWithStorage";
 import { addEventListenerFunc } from "./addEvenListenerFunc";
 import { sleep, layout, data } from "./utils";
-import { WeatherInCityComp } from "./components/weatherinCityComp/weatherInCityComp";
-import { HistoryListComp } from "./components/historyListComp/historyListComp";
+import { WeatherInCityComp } from "./ts/components/weatherinCityComp/weatherInCityComp";
+import { HistoryListComp } from "./ts/components/historyListComp/historyListComp";
 
 global.fetch = jest.fn();
 
