@@ -1,18 +1,22 @@
 import { Component } from "../ComponentClass";
 import { CityListState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
-import { HISTORY_LIST_TPL } from "../../config";
+import {
+  HISTORY_LIST_TPL,
+  CITY_LIST_DEFAULT_VALUE,
+  EVENTS_DEFAULT_VALUE,
+} from "../../config";
 
 export class HistoryListComp implements Component {
-  public state: CityListState = { cities: [{ city: "" }] };
+  public state: CityListState;
 
   private el: HTMLElement;
 
-  public events: eventsList = {
-    defaultEvent: () => null,
-  };
+  public events: eventsList;
 
   constructor(el: HTMLElement, initialState?: CityListState) {
+    this.state = CITY_LIST_DEFAULT_VALUE;
+    this.events = EVENTS_DEFAULT_VALUE;
     this.el = el;
     initialState ? this.setState(initialState) : this.onMount(el); // eslint-disable-line no-unused-expressions
   }

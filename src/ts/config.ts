@@ -1,4 +1,8 @@
-import { convertedWeatherState } from "./components/types";
+import {
+  convertedWeatherState,
+  eventsList,
+  CityListState,
+} from "./components/types";
 
 export const HISTORY_LIST_TPL = `{{for data as cities}}
 <li> {{city}}</li>
@@ -22,4 +26,12 @@ export const WEATHER_BEFORE_FIRST_DEFINE: convertedWeatherState = {
   visibility: 0,
   windSpeed: 0,
   name: "",
+};
+
+export const EVENTS_DEFAULT_VALUE: eventsList = {
+  defaultEvent: () => null,
+};
+
+export const CITY_LIST_DEFAULT_VALUE: CityListState = {
+  cities: [{ city: "" }],
 };

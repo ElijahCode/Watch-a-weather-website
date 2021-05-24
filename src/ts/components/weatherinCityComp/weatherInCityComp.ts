@@ -4,18 +4,19 @@ import { template } from "../../templateEngine/templateEngine";
 import {
   WEATHER_IN_CITY_COMP_TPL,
   WEATHER_BEFORE_FIRST_DEFINE,
+  EVENTS_DEFAULT_VALUE,
 } from "../../config";
 
 export class WeatherInCityComp implements Component {
   private el: HTMLElement;
 
-  public events: eventsList = {
-    defaultEvent: () => null,
-  };
+  public events: eventsList;
 
-  public state: convertedWeatherState = WEATHER_BEFORE_FIRST_DEFINE;
+  public state: convertedWeatherState;
 
   constructor(el: HTMLElement, initialState?: Partial<convertedWeatherState>) {
+    this.state = WEATHER_BEFORE_FIRST_DEFINE;
+    this.events = EVENTS_DEFAULT_VALUE;
     this.el = el;
     initialState ? this.setState(initialState) : this.onMount(el); // eslint-disable-line no-unused-expressions
   }
