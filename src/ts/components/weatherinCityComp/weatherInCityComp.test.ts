@@ -57,7 +57,6 @@ describe("Testing BasicComponent class", () => {
     };
     const result = `In Moscow now is\nSunny,\nTemperature: 25 C,\nTemperature is feels like: 20 C,\nHumidity:50%,\nAtmospheric pressure: 990 Pa,\nWind speed: 3 m/s`;
     component.setState(inputData);
-    expect(component.render()).toBe(result);
     expect(divBlock.innerHTML).toBe(result);
   });
 });

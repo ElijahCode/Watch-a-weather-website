@@ -39,7 +39,6 @@ describe("Testing BasicComponent class", () => {
       cities: [{ city: "Volgograd" }, { city: "London" }, { city: "Madrid" }],
     });
     const result = `<li> Volgograd</li>\n<li> London</li>\n<li> Madrid</li>\n`;
-    expect(component.render()).toBe(result);
     expect(list.innerHTML).toBe(result);
   });
 });
