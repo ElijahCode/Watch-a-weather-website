@@ -7,10 +7,10 @@ describe("Testing BasicComponent class", () => {
   list.classList.add("testList");
   const component = new HistoryListComp(list);
   it("Have basic state", () => {
-    expect(component.state).toEqual({ cities: [{ city: "" }] });
+    expect(component.state).toStrictEqual({ cities: [{ city: "" }] });
   });
   it("Check hook onMount", () => {
-    expect(list.innerHTML).toBe("");
+    expect(component.onMountFlag).toBeTruthy();
   });
   it("Can change state", () => {
     component.setState({ cities: [{ city: "Moscow" }] });
@@ -21,7 +21,7 @@ describe("Testing BasicComponent class", () => {
       click: () => component.setState({ cities: [{ city: "Volgograd" }] }),
     };
     component.events = events;
-    expect(component.events).toEqual(events);
+    expect(component.events).toStrictEqual(events);
   });
   it("Can add eventlisteners", () => {
     const events: eventsList = {
@@ -32,7 +32,7 @@ describe("Testing BasicComponent class", () => {
     component.subscribeToEvents();
     list.click();
 
-    expect(component.state).toEqual({ cities: [{ city: "Volgograd" }] });
+    expect(component.state).toStrictEqual({ cities: [{ city: "Volgograd" }] });
   });
   it("Render method test", () => {
     component.setState({

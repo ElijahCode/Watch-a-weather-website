@@ -1,24 +1,38 @@
 import { Component } from "../ComponentClass";
 import { CityListState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
-import {
-  HISTORY_LIST_TPL,
-  CITY_LIST_DEFAULT_VALUE,
-  EVENTS_DEFAULT_VALUE,
-} from "../../config";
 
 export class HistoryListComp implements Component {
   public state: CityListState;
 
-  private el: HTMLElement;
-
   public events: eventsList;
 
+  public onMountFlag;
+
+  private el: HTMLElement;
+
+  private cityListDefaultValue = {
+    cities: [{ city: "" }],
+  };
+
+  private eventsDefualtValue = {
+    defaultEvent: () => null,
+  };
+
+  private template = `{{for data as cities}}\n<li> {{city}}</li>`;
+
   constructor(el: HTMLElement, initialState?: CityListState) {
-    this.state = CITY_LIST_DEFAULT_VALUE;
-    this.events = EVENTS_DEFAULT_VALUE;
     this.el = el;
-    initialState ? this.setState(initialState) : this.onMount(el); // eslint-disable-line no-unused-expressions
+    if (initialState) {
+      this.state = initialState;
+      this.setState(this.state);
+    } else {
+      this.state = this.cityListDefaultValue;
+      this.setState(this.state);
+    }
+    this.events = this.eventsDefualtValue;
+    this.onMountFlag = false;
+    this.onMount(el);
   }
 
   setState(newState: CityListState): void {
@@ -35,11 +49,11 @@ export class HistoryListComp implements Component {
   }
 
   onMount(el: HTMLElement): void {
-    this.el.innerHTML = this.el.innerHTML; // eslint-disable-line no-self-assign
+    this.onMountFlag = true;
   }
 
   render(): string {
-    const result = template(HISTORY_LIST_TPL, this.state);
+    const result = template(this.template, this.state);
     this.el.innerHTML = result;
     return result;
   }

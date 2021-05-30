@@ -1,24 +1,45 @@
 import { Component } from "../ComponentClass";
 import { convertedWeatherState, eventsList } from "../types";
 import { template } from "../../templateEngine/templateEngine";
-import {
-  WEATHER_IN_CITY_COMP_TPL,
-  WEATHER_BEFORE_FIRST_DEFINE,
-  EVENTS_DEFAULT_VALUE,
-} from "../../config";
 
 export class WeatherInCityComp implements Component {
-  private el: HTMLElement;
-
   public events: eventsList;
 
   public state: convertedWeatherState;
 
+  public onMountFlag;
+
+  private el: HTMLElement;
+
+  private weatherInCityCompTPL = `In {{name}} now is\n{{weather}},\nTemperature: {{temp}} C,\nTemperature is feels like: {{tempFeelsLike}} C,\nHumidity:{{humidity}}%,\nAtmospheric pressure: {{pressure}} Pa,\nWind speed: {{windSpeed}} m/s`;
+
+  private defaultWeather = {
+    weather: "",
+    base: "",
+    temp: 0,
+    tempFeelsLike: 0,
+    pressure: 0,
+    humidity: 0,
+    visibility: 0,
+    windSpeed: 0,
+    name: "",
+  };
+
+  private defaultEvents = {
+    defaultEvent: () => null,
+  };
+
   constructor(el: HTMLElement, initialState?: Partial<convertedWeatherState>) {
-    this.state = WEATHER_BEFORE_FIRST_DEFINE;
-    this.events = EVENTS_DEFAULT_VALUE;
     this.el = el;
-    initialState ? this.setState(initialState) : this.onMount(el); // eslint-disable-line no-unused-expressions
+    this.state = this.defaultWeather;
+    if (initialState) {
+      this.setState(initialState);
+    } else {
+      this.setState(this.defaultWeather);
+    }
+    this.events = this.defaultEvents;
+    this.onMountFlag = false;
+    this.onMount(el);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -38,11 +59,11 @@ export class WeatherInCityComp implements Component {
   }
 
   onMount(el: HTMLElement): void {
-    this.render();
+    this.onMountFlag = true;
   }
 
   render(): string {
-    const result = template(WEATHER_IN_CITY_COMP_TPL, this.state);
+    const result = template(this.weatherInCityCompTPL, this.state);
     this.el.innerHTML = result;
     return result;
   }

@@ -1,6 +1,17 @@
 import { WeatherInCityComp } from "./weatherInCityComp";
 import { convertedWeatherState, eventsList } from "../types";
-import { WEATHER_BEFORE_FIRST_DEFINE } from "../../config";
+
+const defaultWeather: convertedWeatherState = {
+  weather: "",
+  base: "",
+  temp: 0,
+  tempFeelsLike: 0,
+  pressure: 0,
+  humidity: 0,
+  visibility: 0,
+  windSpeed: 0,
+  name: "",
+};
 
 describe("Testing BasicComponent class", () => {
   const divBlock = document.createElement("div");
@@ -8,12 +19,10 @@ describe("Testing BasicComponent class", () => {
   divBlock.classList.add("testBlock");
   const component = new WeatherInCityComp(divBlock);
   it("Have basic state", () => {
-    expect(component.state).toEqual(WEATHER_BEFORE_FIRST_DEFINE);
+    expect(component.state).toStrictEqual(defaultWeather);
   });
   it("Check hook onMount", () => {
-    expect(divBlock.innerHTML).toBe(
-      "In  now is\n,\nTemperature:  C,\nTemperature is feels like:  C,\nHumidity:%,\nAtmospheric pressure:  Pa,\nWind speed:  m/s"
-    );
+    expect(component.onMountFlag).toBeTruthy();
   });
   it("Can change state", () => {
     component.setState({ name: "Moscow" });
@@ -24,7 +33,7 @@ describe("Testing BasicComponent class", () => {
       click: () => component.setState({ name: "Volgograd" }),
     };
     component.events = events;
-    expect(component.events).toEqual(events);
+    expect(component.events).toStrictEqual(events);
   });
   it("Can add eventlisteners", () => {
     const events: eventsList = {
