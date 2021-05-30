@@ -1,41 +1,36 @@
-import { Component } from "../ComponentClass";
+import { BasicComponent } from "../ComponentClass";
 import { convertedWeatherState, eventsList } from "../types";
-import { template } from "../../templateEngine/templateEngine";
 
-export class WeatherInCityComp implements Component {
-  public events: eventsList;
-
+export class WeatherInCityComp extends BasicComponent {
   public state: convertedWeatherState;
 
-  public onMountFlag;
-
-  private el: HTMLElement;
-
-  private weatherInCityCompTPL = `In {{name}} now is\n{{weather}},\nTemperature: {{temp}} C,\nTemperature is feels like: {{tempFeelsLike}} C,\nHumidity:{{humidity}}%,\nAtmospheric pressure: {{pressure}} Pa,\nWind speed: {{windSpeed}} m/s`;
-
-  private defaultWeather = {
-    weather: "",
-    base: "",
-    temp: 0,
-    tempFeelsLike: 0,
-    pressure: 0,
-    humidity: 0,
-    visibility: 0,
-    windSpeed: 0,
-    name: "",
-  };
-
-  private defaultEvents = {
-    defaultEvent: () => null,
-  };
+  protected defaultState: convertedWeatherState;
 
   constructor(el: HTMLElement, initialState?: Partial<convertedWeatherState>) {
+    super(el, initialState);
+
     this.el = el;
-    this.state = this.defaultWeather;
+    this.defaultTemplate = `In {{name}} now is\n{{weather}},\nTemperature: {{temp}} C,\nTemperature is feels like: {{tempFeelsLike}} C,\nHumidity:{{humidity}}%,\nAtmospheric pressure: {{pressure}} Pa,\nWind speed: {{windSpeed}} m/s`;
+    this.defaultState = {
+      weather: "",
+      base: "",
+      temp: 0,
+      tempFeelsLike: 0,
+      pressure: 0,
+      humidity: 0,
+      visibility: 0,
+      windSpeed: 0,
+      name: "",
+    };
+    this.defaultEvents = {
+      defaultEvent: () => null,
+    };
+    this.state = this.defaultState;
+
     if (initialState) {
       this.setState(initialState);
     } else {
-      this.setState(this.defaultWeather);
+      this.setState(this.defaultState);
     }
     this.events = this.defaultEvents;
     this.onMountFlag = false;
@@ -56,15 +51,5 @@ export class WeatherInCityComp implements Component {
       this.state[key] = newState[key];
     });
     this.render();
-  }
-
-  onMount(el: HTMLElement): void {
-    this.onMountFlag = true;
-  }
-
-  render(): string {
-    const result = template(this.weatherInCityCompTPL, this.state);
-    this.el.innerHTML = result;
-    return result;
   }
 }

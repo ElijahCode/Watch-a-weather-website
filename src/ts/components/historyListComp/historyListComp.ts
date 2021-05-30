@@ -1,36 +1,32 @@
-import { Component } from "../ComponentClass";
+import { BasicComponent } from "../ComponentClass";
 import { CityListState, eventsList } from "../types";
-import { template } from "../../templateEngine/templateEngine";
 
-export class HistoryListComp implements Component {
+export class HistoryListComp extends BasicComponent {
   public state: CityListState;
 
-  public events: eventsList;
-
-  public onMountFlag;
-
-  private el: HTMLElement;
-
-  private cityListDefaultValue = {
-    cities: [{ city: "" }],
-  };
-
-  private eventsDefualtValue = {
-    defaultEvent: () => null,
-  };
-
-  private template = `{{for data as cities}}\n<li> {{city}}</li>`;
+  protected defaultState: CityListState;
 
   constructor(el: HTMLElement, initialState?: CityListState) {
+    super(el, initialState);
+
     this.el = el;
+    this.defaultState = {
+      cities: [{ city: "" }],
+    };
+    this.defaultEvents = {
+      defaultEvent: () => null,
+    };
+    this.defaultTemplate = `{{for data as cities}}\n<li> {{city}}</li>`;
+
+    this.state = this.defaultState;
     if (initialState) {
       this.state = initialState;
       this.setState(this.state);
     } else {
-      this.state = this.cityListDefaultValue;
+      this.state = this.defaultState;
       this.setState(this.state);
     }
-    this.events = this.eventsDefualtValue;
+    this.events = this.defaultEvents;
     this.onMountFlag = false;
     this.onMount(el);
   }
@@ -46,15 +42,5 @@ export class HistoryListComp implements Component {
       const element = document.querySelector(`.${elemClass}`) as HTMLElement;
       element.addEventListener(event, this.events[key], true);
     });
-  }
-
-  onMount(el: HTMLElement): void {
-    this.onMountFlag = true;
-  }
-
-  render(): string {
-    const result = template(this.template, this.state);
-    this.el.innerHTML = result;
-    return result;
   }
 }
