@@ -37,15 +37,6 @@ export class WeatherInCityComp extends BasicComponent {
     this.onMount(el);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  subscribeToEvents(): void {
-    Object.keys(this.events).forEach((key) => {
-      const [event, elemClass] = key.split("@");
-      const element = document.querySelector(`.${elemClass}`) as HTMLElement;
-      element.addEventListener(event, this.events[key]);
-    });
-  }
-
   setState(newState: Partial<convertedWeatherState>): void {
     Object.keys(newState).forEach((key) => {
       this.state[key] = newState[key];

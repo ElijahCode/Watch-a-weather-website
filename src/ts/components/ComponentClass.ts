@@ -1,10 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
-import {
-  ComponentState,
-  CityListState,
-  eventsList,
-  convertedWeatherState,
-} from "./types";
+import { ComponentState, eventsList } from "./types";
 
 export abstract class BasicComponent {
   public state: ComponentState;
@@ -25,7 +20,13 @@ export abstract class BasicComponent {
 
   abstract setState(newState: Partial<ComponentState>): void;
 
-  abstract subscribeToEvents(): void;
+  public subscribeToEvents(): void {
+    Object.keys(this.events).forEach((key) => {
+      const [event, elemClass] = key.split("@");
+      const element = document.querySelector(`.${elemClass}`) as HTMLElement;
+      element.addEventListener(event, this.events[key], true);
+    });
+  }
 
   constructor(el: HTMLElement, initialState?: ComponentState) {
     this.el = el;

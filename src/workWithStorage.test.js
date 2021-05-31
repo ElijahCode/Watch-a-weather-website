@@ -1,7 +1,7 @@
 import {
   initStorage,
   addToStorage,
-  removeFromStorage,
+  removeFirstFromStorage,
   readFromStorage,
 } from "./workWithStorage";
 
@@ -28,7 +28,7 @@ describe("Testing addToStorage", () => {
   });
 });
 
-describe("Testing removeFromStorage", () => {
+describe("Testing removeFirstFromStorage", () => {
   it("localStorage must not contain Kiev", () => {
     localStorage.clear();
     initStorage();
@@ -38,7 +38,7 @@ describe("Testing removeFromStorage", () => {
         cities: [{ city: "Kiev" }, { city: "Moscow" }, { city: "Minsk" }],
       })
     );
-    removeFromStorage();
+    removeFirstFromStorage();
     expect(localStorage.getItem("historyList")).toEqual(
       JSON.stringify({ cities: [{ city: "Moscow" }, { city: "Minsk" }] })
     );

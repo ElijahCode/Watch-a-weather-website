@@ -14,7 +14,7 @@ if (localStorage.length === 0) {
 }
 
 const userCityParagraph = new WeatherInCityComp(
-  document.querySelector(".userCityBlock").getElementsByTagName("p").item(1)
+  document.querySelector(".weatherInUserCity")
 );
 
 const requearedCityParagraph = new WeatherInCityComp(

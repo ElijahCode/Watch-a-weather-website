@@ -11,7 +11,7 @@ export function addToStorage(data) {
   localStorage.setItem("historyList", JSON.stringify(storage));
 }
 
-export function removeFromStorage() {
+export function removeFirstFromStorage() {
   const storage = JSON.parse(localStorage.getItem("historyList"));
   storage.cities.shift();
   localStorage.setItem("historyList", JSON.stringify(storage));

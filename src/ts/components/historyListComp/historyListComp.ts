@@ -35,12 +35,4 @@ export class HistoryListComp extends BasicComponent {
     this.state = newState;
     this.render();
   }
-
-  subscribeToEvents(): void {
-    Object.keys(this.events).forEach((key) => {
-      const [event, elemClass] = key.split("@");
-      const element = document.querySelector(`.${elemClass}`) as HTMLElement;
-      element.addEventListener(event, this.events[key], true);
-    });
-  }
 }

@@ -1,4 +1,4 @@
-import { addToStorage, removeFromStorage } from "../workWithStorage";
+import { addToStorage, removeFirstFromStorage } from "../workWithStorage";
 
 export function addToHistoryList(historyList, cityName) {
   for (let i = 0; i < historyList.state.cities.length; i += 1) {
@@ -26,7 +26,7 @@ export function addToHistoryList(historyList, cityName) {
     newState.cities.shift();
     newState.cities.push({ city: cityName });
     historyList.setState(newState);
-    removeFromStorage();
+    removeFirstFromStorage();
     addToStorage(cityName);
   }
   return null;

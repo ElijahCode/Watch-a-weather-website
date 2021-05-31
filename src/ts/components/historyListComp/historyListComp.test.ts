@@ -14,7 +14,7 @@ describe("Testing BasicComponent class", () => {
   });
   it("Can change state", () => {
     component.setState({ cities: [{ city: "Moscow" }] });
-    expect(component.state.cities[0].city).toBe("Moscow");
+    expect(component.state).toStrictEqual({ cities: [{ city: "Moscow" }] });
   });
   it("Have event property", () => {
     const events: eventsList = {
