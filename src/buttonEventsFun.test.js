@@ -1,10 +1,9 @@
 import { buttonClick } from "./buttonEventsFun";
-
 import { initStorage } from "./workWithStorage";
-
 import { addEventListenerFunc } from "./addEvenListenerFunc";
-
 import { sleep, layout, data } from "./utils";
+import { WeatherInCityComp } from "./ts/components/weatherinCityComp/weatherInCityComp";
+import { HistoryListComp } from "./ts/components/historyListComp/historyListComp";
 
 global.fetch = jest.fn();
 
@@ -18,8 +17,9 @@ input.value = "Moscow";
 const image = document.querySelector(".cityMap");
 image.src = "No data";
 
-const changedParag = document.querySelector(".weatherInReqCity");
-changedParag.innerText = "No data";
+const changedParag = new WeatherInCityComp(
+  document.querySelector(".weatherInReqCity")
+);
 
 it("Testing buttonCLick", async () => {
   fetch.mockImplementationOnce(() =>
@@ -29,10 +29,10 @@ it("Testing buttonCLick", async () => {
   );
 
   input.value = "Moscow";
-  changedParag.innerText = "No data";
+  changedParag.setState({ name: "no data" });
   image.src = "No data";
 
-  const list = document.querySelector(".list");
+  const list = new HistoryListComp(document.querySelector(".list"));
   const button = document.querySelector(".button");
 
   addEventListenerFunc(
